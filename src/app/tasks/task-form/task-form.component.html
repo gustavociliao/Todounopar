@@ -1,0 +1,58 @@
+<div class="flex col-12 justify-content-center">
+  <h2>{{ title }}</h2>
+</div>
+
+<section id="form">
+  <form (ngSubmit)="onSubmit(formTask)" #formTask="ngForm">
+
+    <!-- CAMPO DESCRIÇÃO -->
+    <div class="col-12">
+      <span class="p-float-label">
+        <textarea pInputTextarea id="float-input" rows="12" class="w-full"
+          name="description"
+          [(ngModel)]="task.description"
+          #description="ngModel"
+          required
+          minlength="5"
+          maxlength="600">
+        </textarea>
+
+        <label for="float-input">Digite aqui uma tarefa que deseja salvar!</label>
+      </span>
+
+      <!-- MENSAGENS DE ERRO -->
+      <div *ngIf="description.invalid && description.touched" class="p-error mt-2" style="color: red;">
+        <small *ngIf="description.errors?.['required']">
+          • O campo descrição é obrigatório.
+        </small><br>
+        <small *ngIf="description.errors?.['minlength']">
+          • Mínimo de 5 caracteres.
+        </small><br>
+        <small *ngIf="description.errors?.['maxlength']">
+          • Máximo de 600 caracteres.
+        </small>
+      </div>
+    </div>
+
+    <!-- BOTÕES -->
+    <div class="grid flex flex-wrap justify-content-center ">
+      <div class="col-12 md:col-6 lg:col-4">
+        <button pButton pRipple icon="pi pi-save"
+          [disabled]="formTask.invalid"
+          class="p-button-rounded p-button-success w-full"
+          type="submit">
+          Salvar
+        </button>
+      </div>
+
+      <div class="col-12 md:col-6 lg:col-4">
+        <button pButton pRipple icon="pi pi-replay"
+          class="p-button-rounded p-button-secondary w-full"
+          [routerLink]="['']">
+          Cancelar
+        </button>
+      </div>
+    </div>
+
+  </form>
+</section>
